@@ -1,14 +1,13 @@
-let cnt: number = 0;  //kontrollwert wei viele karten gerade aufgedeckt sind
+let cnt = 0;  //kontrollwert wei viele karten gerade aufgedeckt sind
 let src1: string;     //bild aufgedeckte karte 1
 let src2: string;     //bild aufgedeckte karte 2
 let flipped1: HTMLElement;  //aufgedeckte karte 1
 let flipped2: HTMLElement;  //ufgedeckte karte 2
 let id1: string;      //id aufgedeckter karte 1
-let id2: string;      //id aufgedeckter karte 2
-let found: number = 0;//anzahl gefundener paare
-let turns: number = 1;  //anzahl der runden
-let found1: number = 0; //anzahl gefundener paare von spieler 1
-let found2: number = 0; //anzahl gefundener paare von spieler 2
+let found= 0;//anzahl gefundener paare
+let turns = 1;  //anzahl der runden
+let found1 = 0; //anzahl gefundener paare von spieler 1
+let found2 = 0; //anzahl gefundener paare von spieler 2
 
 interface card{
     id: string;
@@ -134,9 +133,9 @@ const cntOptions: cntChoice[] = [
     {value: "10", text: "10"}
 ]
 
-const container = document.getElementById('game-board') as HTMLElement;
-const input = document.getElementById('input-field') as HTMLElement;
-const scoreboard = document.getElementById('score-board') as HTMLElement;
+const container: HTMLElement = document.getElementById('game-board')!;
+const input: HTMLElement = document.getElementById('input-field')!;
+const scoreboard: HTMLElement = document.getElementById('score-board')!;
 
 function cardnumberInput(){
     const newDiv: HTMLElement = document.createElement('div');
@@ -161,7 +160,7 @@ function cardnumberInput(){
     submitChoice.textContent = "choose";
     input.appendChild(submitChoice);
 
-    submitChoice.addEventListener('click', (e)=> { //liest value aus wenn button clicked
+    submitChoice.addEventListener('click', ()=> { //liest value aus wenn button clicked
         const selected = select.value;
         let choice = Number(selected);
         choice = choice * 2;
@@ -193,7 +192,6 @@ function changeImg(id: string, card: HTMLElement){
             id1 = id;
         }else if(cnt == 2){//karte und id zwischenspeichern;
             flipped2 = card;
-            id2 = id;
             const flipSrc1 = flipped1.querySelector('.flip-card-back') as HTMLElement;
             const img1 = flipSrc1.childNodes[0] as HTMLImageElement;
             src1 = img1.src;    //pfad zu bild von karte
@@ -212,8 +210,8 @@ function chkImg(src1: string, src2: string){//pruefen ob bild das selbe
         setTimeout(changeBack, 1000);
         turns++;
     }else{  //wenn nein karten als matched markieren
-        const flipBack1 = flipped1.querySelector('.flip-card-back') as HTMLElement;
-        const flipBack2 = flipped2.querySelector('.flip-card-back') as HTMLElement;
+        const flipBack1: HTMLElement = flipped1.querySelector('.flip-card-back')!;
+        const flipBack2: HTMLElement = flipped2.querySelector('.flip-card-back')!;
         flipBack1.classList.add('matched');
         flipBack2.classList.add('matched');
         flippedCards.push(flipped1);
@@ -221,13 +219,12 @@ function chkImg(src1: string, src2: string){//pruefen ob bild das selbe
         found += 1;
         cnt = 0;    //count und ids zuruesetzen
         id1 = "0";
-        id2 = "0";
         if(turns % 2 === 0) found2++; //gefundenen karten einzelner spieler tracken
         else found1++;
 
         if(playingCards.length === found * 2) //alle paare gefunden
         { 
-            const endField = document.getElementById("game-over") as HTMLElement;
+            const endField: HTMLElement = document.getElementById("game-over")!;
             const newButton: HTMLElement = document.createElement('button'); //play again button erstellen
             newButton.classList.add('mt-3');
             newButton.classList.add('ml-3');
@@ -242,7 +239,7 @@ function chkImg(src1: string, src2: string){//pruefen ob bild das selbe
             endField.appendChild(msg);
             endField.appendChild(newButton);
 
-            newButton.addEventListener('click', (e)=>{ //reload button definieren
+            newButton.addEventListener('click', ()=>{ //reload button definieren
                 location.reload();
             });
 
@@ -259,7 +256,6 @@ function changeBack(){
 
     cnt = 0;  //count und ids zuruesetzen
     id1 = "0";  
-    id2 = "0";
 }
 
 

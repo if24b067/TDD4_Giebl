@@ -5,7 +5,6 @@ let src2; //bild aufgedeckte karte 2
 let flipped1; //aufgedeckte karte 1
 let flipped2; //ufgedeckte karte 2
 let id1; //id aufgedeckter karte 1
-let id2; //id aufgedeckter karte 2
 let found = 0; //anzahl gefundener paare
 let turns = 1; //anzahl der runden
 let found1 = 0; //anzahl gefundener paare von spieler 1
@@ -139,7 +138,7 @@ function cardnumberInput() {
     submitChoice.classList.add('btn-primary');
     submitChoice.textContent = "choose";
     input.appendChild(submitChoice);
-    submitChoice.addEventListener('click', (e) => {
+    submitChoice.addEventListener('click', () => {
         const selected = select.value;
         let choice = Number(selected);
         choice = choice * 2;
@@ -168,7 +167,6 @@ function changeImg(id, card) {
         }
         else if (cnt == 2) { //karte und id zwischenspeichern;
             flipped2 = card;
-            id2 = id;
             const flipSrc1 = flipped1.querySelector('.flip-card-back');
             const img1 = flipSrc1.childNodes[0];
             src1 = img1.src; //pfad zu bild von karte
@@ -194,7 +192,6 @@ function chkImg(src1, src2) {
         found += 1;
         cnt = 0; //count und ids zuruesetzen
         id1 = "0";
-        id2 = "0";
         if (turns % 2 === 0)
             found2++; //gefundenen karten einzelner spieler tracken
         else
@@ -213,7 +210,7 @@ function chkImg(src1, src2) {
             msg.textContent = "Game Over! Press the button to play again.";
             endField.appendChild(msg);
             endField.appendChild(newButton);
-            newButton.addEventListener('click', (e) => {
+            newButton.addEventListener('click', () => {
                 location.reload();
             });
         }
@@ -226,7 +223,6 @@ function changeBack() {
     flipped2.classList.remove('flipped');
     cnt = 0; //count und ids zuruesetzen
     id1 = "0";
-    id2 = "0";
 }
 function generateCards() {
     displayPlayer();
